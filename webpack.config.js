@@ -34,6 +34,11 @@ module.exports = {
           'sass-loader',
         ],
       },
+
+      {
+        test: /\.styl$/,
+        use: ['style-loader', 'css-loader', "stylus-loader"], // 将 Stylus 文件编译为 CSS
+      },
     ]
   },
   plugins: [],
