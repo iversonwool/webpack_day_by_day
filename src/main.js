@@ -7,6 +7,8 @@ import './css/sass.sass'
 import './css/scss.scss';
 import './css/st.styl';
 
+import './css/iconfont.css'
+
 console.log(currentTime())
 console.log(add(1, 2, 3, 4, 5))
 console.log(currentTime())
