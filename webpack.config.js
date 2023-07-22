@@ -1,5 +1,7 @@
 const path = require('path')
 
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -63,11 +65,26 @@ module.exports = {
         generator: {
           filename: 'fonts/[hash:10][ext][query]'
         }
-      }
+      },
 
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          // 将配置写在.babelrc.js配置文件
+          // options: {
+          //   presets: ['@babel/preset-env']
+          // }
+        }
+      }
     ]
   },
-  plugins: [],
+  plugins: [
+    new ESLintPlugin({
+      context: path.resolve(__dirname, 'src')
+    })
+  ],
   mode: "development",
   // devtool: false
 }
