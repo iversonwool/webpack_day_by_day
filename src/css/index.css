@@ -3,4 +3,5 @@
   height: 100px;
   background-image: url("../assets/aaa.PNG");
   background-size: cover;
+  display: flex;
 }

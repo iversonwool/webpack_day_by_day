@@ -17,7 +17,18 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: ["postcss-preset-env"]
+              }
+            }
+          }
+        ],
       },
 
       {
@@ -26,6 +37,14 @@ module.exports = {
           // compiles Less to CSS
           MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: ["postcss-preset-env"]
+              }
+            }
+          },
           'less-loader',
         ],
       },
@@ -37,6 +56,14 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           // 将 CSS 转化成 CommonJS 模块
           'css-loader',
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: ["postcss-preset-env"]
+              }
+            }
+          },
           // 将 Sass 编译成 CSS
           'sass-loader',
         ],
@@ -44,7 +71,19 @@ module.exports = {
 
       {
         test: /\.styl$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', "stylus-loader"], // 将 Stylus 文件编译为 CSS
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: ["postcss-preset-env"]
+              }
+            }
+          },
+          "stylus-loader"
+        ], // 将 Stylus 文件编译为 CSS
       },
 
       {
