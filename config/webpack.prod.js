@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: "main.js",
     // 自动清空上次打包资源
     clean: true
@@ -84,17 +84,17 @@ module.exports = {
   },
   plugins: [
     new ESLintPlugin({
-      context: path.resolve(__dirname, 'src')
+      context: path.resolve(__dirname, '../src')
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html')
+      template: path.resolve(__dirname, '../public/index.html')
     })
   ],
-  mode: "development",
+  mode: "production",
   // devtool:
-  devServer: {
-    host: 'localhost',
-    port: '9527',
-    open: true
-  }
+  // devServer: {
+  //   host: 'localhost',
+  //   port: '9527',
+  //   open: true
+  // }
 }
