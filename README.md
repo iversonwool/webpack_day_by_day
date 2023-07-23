@@ -4,28 +4,18 @@
 - 图片资源使用webpack自带的 type: asset 处理
 - type: asset/resource 处理其他资源
 
-
-
-
-
 > 核心loader
 > 
 > - [babel-loader](https://webpack.docschina.org/loaders/babel-loader/)
 > 
 > - 
 
-
-
-
-
 > 核心plugin
 > 
 > - [eslint-plugin](https://webpack.docschina.org/plugins/eslint-webpack-plugin/)
 > 
 > - [html-webpack-plugin](https://webpack.docschina.org/plugins/html-webpack-plugin/)
-
-
-
-
+> 
+> - [mini-css-extract-plugin](https://webpack.docschina.org/plugins/mini-css-extract-plugin/)
 
 > webpack-dev-server

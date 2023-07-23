@@ -2,6 +2,7 @@ const path = require('path')
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 
 module.exports = {
@@ -16,14 +17,14 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
 
       {
         test: /\.less$/i,
         use: [
           // compiles Less to CSS
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'less-loader',
         ],
@@ -33,7 +34,7 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // 将 JS 字符串生成为 style 节点
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           // 将 CSS 转化成 CommonJS 模块
           'css-loader',
           // 将 Sass 编译成 CSS
@@ -43,7 +44,7 @@ module.exports = {
 
       {
         test: /\.styl$/,
-        use: ['style-loader', 'css-loader', "stylus-loader"], // 将 Stylus 文件编译为 CSS
+        use: [MiniCssExtractPlugin.loader, 'css-loader', "stylus-loader"], // 将 Stylus 文件编译为 CSS
       },
 
       {
@@ -88,6 +89,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html')
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/index.css'
     })
   ],
   mode: "production",
