@@ -8,7 +8,7 @@
 > 
 > - [babel-loader](https://webpack.docschina.org/loaders/babel-loader/)
 > 
-> - 
+> - [postcss-loader](https://webpack.docschina.org/loaders/postcss-loader/)
 
 > 核心plugin
 > 
@@ -17,5 +17,7 @@
 > - [html-webpack-plugin](https://webpack.docschina.org/plugins/html-webpack-plugin/)
 > 
 > - [mini-css-extract-plugin](https://webpack.docschina.org/plugins/mini-css-extract-plugin/)
+> 
+> - [css-minimizer-webpack-plugin](https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/)
 
 > webpack-dev-server

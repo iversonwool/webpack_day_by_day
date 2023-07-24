@@ -3,6 +3,23 @@ const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+
+
+function commonStyleLoader() {
+  return [
+    MiniCssExtractPlugin.loader,
+    "css-loader",
+    {
+      loader: "postcss-loader",
+      options: {
+        postcssOptions: {
+          plugins: ["postcss-preset-env"]
+        }
+      }
+    }
+  ]
+}
 
 
 module.exports = {
@@ -17,34 +34,14 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"]
-              }
-            }
-          }
-        ],
+        use: commonStyleLoader(),
       },
 
       {
         test: /\.less$/i,
         use: [
           // compiles Less to CSS
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"]
-              }
-            }
-          },
+          ...commonStyleLoader(),
           'less-loader',
         ],
       },
@@ -53,17 +50,7 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // 将 JS 字符串生成为 style 节点
-          MiniCssExtractPlugin.loader,
-          // 将 CSS 转化成 CommonJS 模块
-          'css-loader',
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"]
-              }
-            }
-          },
+          ...commonStyleLoader(),
           // 将 Sass 编译成 CSS
           'sass-loader',
         ],
@@ -72,16 +59,7 @@ module.exports = {
       {
         test: /\.styl$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: ["postcss-preset-env"]
-              }
-            }
-          },
+          ...commonStyleLoader(),
           "stylus-loader"
         ], // 将 Stylus 文件编译为 CSS
       },
@@ -133,6 +111,15 @@ module.exports = {
       filename: 'css/index.css'
     })
   ],
+  optimization: {
+    minimizer: [
+      // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizer（即 `terser-webpack-plugin`），将下一行取消注释
+      // 不能漏了这个 不然不会默认开启代码压缩
+      // 包括js压缩 和 css压缩
+      `...`,
+      new CssMinimizerPlugin()
+    ]
+  },
   mode: "production",
   // devtool:
   // devServer: {
