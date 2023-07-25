@@ -1,10 +1,12 @@
 const path = require('path')
+const os = require('os')
+const threads = os.cpus().length
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-
+const TerserWebpackPlugin = require('terser-webpack-plugin')
 
 function commonStyleLoader() {
   return [
@@ -93,15 +95,23 @@ module.exports = {
             test: /\.m?js$/,
             exclude: /(node_modules|bower_components)/,
             // include: ,
-            use: {
-              loader: 'babel-loader',
-              // 将配置写在.babelrc.js配置文件
-              options: {
-                // presets: ['@babel/preset-env']
-                cacheDirectory: true, // 开启babel编译缓存
-                cacheCompression: false, // 缓存文件不要压缩
+            use: [
+              {
+                loader: "thread-loader",
+                options: {
+                  workers: threads
+                }
+              },
+              {
+                loader: 'babel-loader',
+                // 将配置写在.babelrc.js配置文件
+                options: {
+                  // presets: ['@babel/preset-env']
+                  cacheDirectory: true, // 开启babel编译缓存
+                  cacheCompression: false, // 缓存文件不要压缩
+                }
               }
-            }
+            ]
           }
         ]
       }
@@ -110,6 +120,7 @@ module.exports = {
   plugins: [
     new ESLintPlugin({
       context: path.resolve(__dirname, '../src'),
+      threads
       // exclude: "node_modules"// 默认值
       // cache: true,
       // cacheLocation: path.resolve(__dirname, '../node_modules/.cache/.eslintcache')
@@ -122,12 +133,16 @@ module.exports = {
     })
   ],
   optimization: {
+    minimize: true,
     minimizer: [
       // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizer（即 `terser-webpack-plugin`），将下一行取消注释
       // 不能漏了这个 不然不会默认开启代码压缩
       // 包括js压缩 和 css压缩
-      `...`,
-      new CssMinimizerPlugin()
+      // `...`,
+      new CssMinimizerPlugin(),
+      new TerserWebpackPlugin({
+        parallel: threads
+      })
     ]
   },
   mode: "production",
