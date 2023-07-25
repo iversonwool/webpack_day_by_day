@@ -20,4 +20,8 @@
 > 
 > - [css-minimizer-webpack-plugin](https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/)
 
-> webpack-dev-server
+> [webpack-dev-server](https://webpack.docschina.org/configuration/dev-server/)
+> 
+> [devtool](https://webpack.docschina.org/configuration/devtool/)
+> 
+> [HMR](https://webpack.docschina.org/guides/hot-module-replacement/)

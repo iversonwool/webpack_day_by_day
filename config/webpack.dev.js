@@ -91,10 +91,11 @@ module.exports = {
     })
   ],
   mode: "development",
-  // devtool:
+  devtool: 'cheap-module-source-map',
   devServer: {
     host: 'localhost',
     port: '9527',
-    open: true
+    open: true,
+    hot: true
   }
 }

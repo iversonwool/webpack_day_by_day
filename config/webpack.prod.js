@@ -121,7 +121,7 @@ module.exports = {
     ]
   },
   mode: "production",
-  // devtool:
+  devtool: 'source-map'
   // devServer: {
   //   host: 'localhost',
   //   port: '9527',

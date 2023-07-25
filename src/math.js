@@ -1,3 +1,3 @@
 export function add() {
-  return [...arguments].reduce((p, c) => p + c, 0)
+  return [...arguments].reduce((p, c) => p + c, 1)
 }
