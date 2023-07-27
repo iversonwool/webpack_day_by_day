@@ -30,10 +30,12 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: "main.js",
+    filename: "[name].js",
     // 自动清空上次打包资源
     clean: true,
-    chunkFilename: "js/[name].js"
+    chunkFilename: "js/[name].chunk.js",
+    // 图片 字体等
+    assetModuleFilename: 'media/[hash:10][ext][query]'
   },
   module: {
     rules: [
@@ -80,18 +82,18 @@ module.exports = {
                 maxSize: 10 * 1024 // 4kb
               },
             },
-            generator: {
-              filename: 'assets/[hash:10][ext][query]'
-            }
+            // generator: {
+            //   filename: 'assets/[hash:10][ext][query]'
+            // }
           },
 
           {
             test: /\.(ttf|woff2?)$/i,
             // 不处理资源 原样输出
             type: 'asset/resource',
-            generator: {
-              filename: 'fonts/[hash:10][ext][query]'
-            }
+            // generator: {
+            //   filename: 'fonts/[hash:10][ext][query]'
+            // }
           },
 
           {
@@ -133,7 +135,8 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html')
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/index.css'
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[name].chunk.css'
     })
   ],
   optimization: {
