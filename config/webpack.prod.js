@@ -32,7 +32,8 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: "main.js",
     // 自动清空上次打包资源
-    clean: true
+    clean: true,
+    chunkFilename: "js/[name].js"
   },
   module: {
     rules: [
@@ -174,7 +175,13 @@ module.exports = {
           },
         },
       }),
-    ]
+    ],
+    splitChunks: {
+      //  两个作用1，对应多次引用到的node_modules里面的公共代码会被抽离出来一个单独的js
+      // 2, 会对于动态import的文件抽离出来一个js 在需要用到的时候引入
+      // 应用：router的按需加载
+      chunks: "all",
+    }
   },
   mode: "production",
   devtool: 'source-map'

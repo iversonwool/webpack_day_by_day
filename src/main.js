@@ -9,6 +9,15 @@ import './css/st.styl';
 
 import './css/iconfont.css'
 
+// var a = 3;
+
+document.getElementById('btn').onclick = function () {
+  // 主要 webpackChunkName 不能写错
+  import(/* webpackChunkName: "hello" */'./hello')
+    .then(({hello}) => {
+      hello()
+    })
+}
 
 if (module.hot) {
   module.hot.accept('./math.js')
