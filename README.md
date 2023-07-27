@@ -9,6 +9,8 @@
 > - [babel-loader](https://webpack.docschina.org/loaders/babel-loader/)
 > 
 > - [postcss-loader](https://webpack.docschina.org/loaders/postcss-loader/)
+> 
+> - [thread-loader](https://webpack.docschina.org/loaders/thread-loader/)
 
 > 核心plugin
 > 
@@ -19,9 +21,15 @@
 > - [mini-css-extract-plugin](https://webpack.docschina.org/plugins/mini-css-extract-plugin/)
 > 
 > - [css-minimizer-webpack-plugin](https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/)
+> 
+> - [terser-webpack-plugin](https://webpack.docschina.org/plugins/terser-webpack-plugin/)
+> 
+> - [image-minimizer-webpack-plugin](https://webpack.docschina.org/plugins/image-minimizer-webpack-plugin/)
 
 > [webpack-dev-server](https://webpack.docschina.org/configuration/dev-server/)
 > 
 > [devtool](https://webpack.docschina.org/configuration/devtool/)
 > 
 > [HMR](https://webpack.docschina.org/guides/hot-module-replacement/)
+> 
+> [split-chunks](https://webpack.docschina.org/plugins/split-chunks-plugin/)

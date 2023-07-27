@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin')
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+
 
 function commonStyleLoader() {
   return [
@@ -106,7 +108,8 @@ module.exports = {
                 loader: 'babel-loader',
                 // 将配置写在.babelrc.js配置文件
                 options: {
-                  // presets: ['@babel/preset-env']
+                  // presets: ['@babel/preset-env'],
+                  plugins: ["@babel/plugin-transform-runtime"],
                   cacheDirectory: true, // 开启babel编译缓存
                   cacheCompression: false, // 缓存文件不要压缩
                 }
@@ -138,11 +141,39 @@ module.exports = {
       // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizer（即 `terser-webpack-plugin`），将下一行取消注释
       // 不能漏了这个 不然不会默认开启代码压缩
       // 包括js压缩 和 css压缩
-      // `...`,
+      `...`,
       new CssMinimizerPlugin(),
       new TerserWebpackPlugin({
         parallel: threads
-      })
+      }),
+      // 压缩图片
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.imageminGenerate,
+          options: {
+            plugins: [
+              ["gifsicle", { interlaced: true }],
+              ["jpegtran", { progressive: true }],
+              ["optipng", { optimizationLevel: 5 }],
+              [
+                "svgo",
+                {
+                  plugins: [
+                    "preset-default",
+                    "prefixIds",
+                    {
+                      name: "sortAttrs",
+                      params: {
+                        xmlnsOrder: "alphabetical",
+                      },
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+      }),
     ]
   },
   mode: "production",
