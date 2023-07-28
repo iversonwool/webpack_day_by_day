@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 
 function commonStyleLoader() {
   return [
@@ -30,10 +30,10 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: "[name].js",
+    filename: "[name].[contenthash:8].js",
     // 自动清空上次打包资源
     clean: true,
-    chunkFilename: "js/[name].chunk.js",
+    chunkFilename: "js/[name].[contenthash:8].chunk.js",
     // 图片 字体等
     assetModuleFilename: 'media/[hash:10][ext][query]'
   },
@@ -135,9 +135,14 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html')
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
-      chunkFilename: 'css/[name].chunk.css'
-    })
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name][contenthash:8].chunk.css'
+    }),
+    new PreloadWebpackPlugin({
+      rel: "preload", // preload兼容性更好
+      as: "script",
+      // rel: 'prefetch' // prefetch兼容性更差
+    }),
   ],
   optimization: {
     minimize: true,
@@ -145,7 +150,7 @@ module.exports = {
       // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizer（即 `terser-webpack-plugin`），将下一行取消注释
       // 不能漏了这个 不然不会默认开启代码压缩
       // 包括js压缩 和 css压缩
-      `...`,
+      // `...`,
       new CssMinimizerPlugin(),
       new TerserWebpackPlugin({
         parallel: threads
@@ -180,10 +185,14 @@ module.exports = {
       }),
     ],
     splitChunks: {
-      //  两个作用1，对应多次引用到的node_modules里面的公共代码会被抽离出来一个单独的js
+      // 两个作用
+      // 1，对应多次引用到的node_modules里面的公共代码会被抽离出来一个单独的js
       // 2, 会对于动态import的文件抽离出来一个js 在需要用到的时候引入
       // 应用：router的按需加载
       chunks: "all",
+    },
+    runtimeChunk: {
+      name: entrypoint => `runtime.${entrypoint.name}`
     }
   },
   mode: "production",

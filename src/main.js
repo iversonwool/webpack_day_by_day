@@ -1,4 +1,4 @@
-import {add} from './math'
+import {add, triple} from './math'
 import {currentTime} from './tools'
 
 import './css/index.css'
@@ -26,5 +26,6 @@ if (module.hot) {
 console.log(currentTime())
 console.log(add(1, 2, 3, 4, 5))
 console.log(currentTime())
+console.log(triple(3))
 
 
