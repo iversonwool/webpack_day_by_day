@@ -1,3 +1,6 @@
+
+// import 'core-js/es/promise'
+
 import {add, triple} from './math'
 import {currentTime} from './tools'
 
@@ -27,5 +30,16 @@ console.log(currentTime())
 console.log(add(1, 2, 3, 4, 5))
 console.log(currentTime())
 console.log(triple(3))
+
+new Promise(function (resolve) {
+  setTimeout(function () {
+    resolve()
+  }, 1000)
+}).then(function () {
+  console.log('resolve')
+})
+
+const arr = [1, 3, 4]
+console.log(arr.includes(3))
 
 

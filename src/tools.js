@@ -6,3 +6,7 @@ export function currentTime() {
 
 import {add} from './math'
 console.log(add(1, 2))
+
+
+const a = [',', ",", 'a']
+console.log(a.includes('a'))

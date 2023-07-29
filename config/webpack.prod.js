@@ -112,6 +112,11 @@ module.exports = {
                 // 将配置写在.babelrc.js配置文件
                 options: {
                   // presets: ['@babel/preset-env'],
+                  // "exclude": [
+                  //   // \\ for Windows, \/ for Mac OS and Linux
+                  //   /node_modules[\\\/]core-js/,
+                  //   /node_modules[\\\/]webpack[\\\/]buildin/,
+                  // ],
                   plugins: ["@babel/plugin-transform-runtime"],
                   cacheDirectory: true, // 开启babel编译缓存
                   cacheCompression: false, // 缓存文件不要压缩
@@ -196,7 +201,8 @@ module.exports = {
     }
   },
   mode: "production",
-  devtool: 'source-map'
+  devtool: 'source-map',
+  // target: ['web', 'es5']
   // devServer: {
   //   host: 'localhost',
   //   port: '9527',
