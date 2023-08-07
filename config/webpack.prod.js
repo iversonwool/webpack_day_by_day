@@ -9,6 +9,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 
 function commonStyleLoader() {
   return [
@@ -18,7 +19,7 @@ function commonStyleLoader() {
       loader: "postcss-loader",
       options: {
         postcssOptions: {
-          plugins: ["postcss-preset-env"]
+          plugins: ["postcss-preset-env"]// 配合package.json 的browserslist 设置兼容性做到什么程度
         }
       }
     }
@@ -147,6 +148,12 @@ module.exports = {
       rel: "preload", // preload兼容性更好
       as: "script",
       // rel: 'prefetch' // prefetch兼容性更差
+    }),
+    new WorkboxWebpackPlugin.GenerateSW({
+      // 这些选项帮助快速启用 ServiceWorkers
+      // 不允许遗留任何“旧的” ServiceWorkers
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
   optimization: {
