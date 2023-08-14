@@ -1,4 +1,5 @@
 console.log('hello world!');
+import "./css/index.css"
 
 
 function sum(...args) {

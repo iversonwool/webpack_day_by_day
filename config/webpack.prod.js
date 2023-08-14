@@ -28,7 +28,7 @@ function commonStyleLoader() {
 
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/a.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: "[name].[contenthash:8].js",

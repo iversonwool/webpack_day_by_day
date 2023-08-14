@@ -5,10 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/a.js',
   output: {
     // path: path.resolve(__dirname, 'dist'),
-    filename: "main.js",
+    filename: "a.js",
     // 自动清空上次打包资源
     clean: true
   },
